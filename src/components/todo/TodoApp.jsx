@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./TodoApp.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class TodoApp extends Component {
     render() {
@@ -10,7 +10,8 @@ class TodoApp extends Component {
                     <Switch>
                         <Route path="/" exact component={LoginComponent} />
                         <Route path="/login" component={LoginComponent} />
-                        <Route path="/welcome" component={WelcomeComponent} />
+                        <Route path="/welcome/:username" component={WelcomeComponent} />
+                        <Route path="/todos" component={ListTodosComponent} />
                         <Route component={ErrorComponent} />
                     </Switch>
                 </Router>
@@ -21,7 +22,51 @@ class TodoApp extends Component {
 
 class WelcomeComponent extends Component {
     render() {
-        return <div>Welcome jbreitzman</div>;
+        return (
+            <div>
+                Welcome {this.props.match.params.username}, You can manange your todo's <Link to="/todos">Here</Link>
+            </div>
+        );
+    }
+}
+
+class ListTodosComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            todos: [
+                { id: 1, description: "Learn React", done: false, targetDate: new Date() },
+                { id: 2, description: "Learn Spring", done: false, targetDate: new Date() },
+                { id: 3, description: "Travel More", done: false, targetDate: new Date() },
+            ],
+        };
+    }
+    render() {
+        return (
+            <div>
+                <h1>List Todos</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Description</th>
+                            <th>Is Completed?</th>
+                            <th>Target Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.todos.map((todo) => (
+                            <tr>
+                                <td>{todo.id}</td>
+                                <td>{todo.description}</td>
+                                <td>{todo.done.toString()}</td>
+                                <td>{todo.targetDate.toString()}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        );
     }
 }
 
@@ -57,7 +102,7 @@ class LoginComponent extends Component {
         // TODO: Hardcoded Authentication.
         if (this.state.username === "jbreitzman" && this.state.password === "password") {
             // Redirect User to Welcome Page
-            this.props.history.push("/welcome");
+            this.props.history.push(`/welcome/${this.state.username}`);
             this.setState({ showSuccessMessage: true, hasLoginFailed: false });
         } else {
             this.setState({ showSuccessMessage: false, hasLoginFailed: true });
