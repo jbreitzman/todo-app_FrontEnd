@@ -27,9 +27,12 @@ class TodoApp extends Component {
 class WelcomeComponent extends Component {
     render() {
         return (
-            <div>
-                Welcome {this.props.match.params.username}, You can manange your todo's <Link to="/todos">Here</Link>
-            </div>
+            <>
+                <h1>Welcome!</h1>
+                <div className="container">
+                    Welcome {this.props.match.params.username}, You can manange your todo's <Link to="/todos">Here</Link>
+                </div>
+            </>
         );
     }
 }
@@ -49,26 +52,26 @@ class ListTodosComponent extends Component {
         return (
             <div>
                 <h1>List Todos</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Description</th>
-                            <th>Is Completed?</th>
-                            <th>Target Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.todos.map((todo) => (
-                            <tr key={todo.id}>
-                                <td>{todo.id}</td>
-                                <td>{todo.description}</td>
-                                <td>{todo.done.toString()}</td>
-                                <td>{todo.targetDate.toString()}</td>
+                <div className="container">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Is Completed?</th>
+                                <th>Target Date</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {this.state.todos.map((todo) => (
+                                <tr key={todo.id}>
+                                    <td>{todo.description}</td>
+                                    <td>{todo.done.toString()}</td>
+                                    <td>{todo.targetDate.toString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
@@ -154,11 +157,16 @@ class LoginComponent extends Component {
     render() {
         return (
             <div>
-                {this.state.hasLoginFailed && <div>Invalid Credentials</div>}
-                {this.state.showSuccessMessage && <div>Login Successful</div>}
-                User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-                Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-                <button onClick={this.loginClicked}>Login</button>
+                <h1>Login</h1>
+                <div className="container">
+                    {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+                    {/*this.state.showSuccessMessage && <div>Login Successful</div>*/}
+                    User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+                    Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+                    <button className="btn btn-success" onClick={this.loginClicked}>
+                        Login
+                    </button>
+                </div>
             </div>
         );
     }
