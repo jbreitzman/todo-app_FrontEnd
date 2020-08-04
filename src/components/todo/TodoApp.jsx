@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./TodoApp.css";
+import "../../bootstrap.css";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 class TodoApp extends Component {
@@ -7,6 +8,7 @@ class TodoApp extends Component {
         return (
             <div className="TodoApp">
                 <Router>
+                    <HeaderComponent />
                     <Switch>
                         <Route path="/" exact component={LoginComponent} />
                         <Route path="/login" component={LoginComponent} />
@@ -14,6 +16,7 @@ class TodoApp extends Component {
                         <Route path="/todos" component={ListTodosComponent} />
                         <Route component={ErrorComponent} />
                     </Switch>
+                    <FooterComponent />
                 </Router>
             </div>
         );
@@ -56,7 +59,7 @@ class ListTodosComponent extends Component {
                     </thead>
                     <tbody>
                         {this.state.todos.map((todo) => (
-                            <tr>
+                            <tr key={todo.id}>
                                 <td>{todo.id}</td>
                                 <td>{todo.description}</td>
                                 <td>{todo.done.toString()}</td>
@@ -72,6 +75,57 @@ class ListTodosComponent extends Component {
 
 function ErrorComponent() {
     return <div>404 Page not found :(</div>;
+}
+
+class HeaderComponent extends Component {
+    render() {
+        return (
+            <header>
+                <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <div>
+                        <a href="http://www.breitek.io" className="navbar-brand">
+                            jbreitzman
+                        </a>
+                    </div>
+                    <ul className="navbar-nav">
+                        <li>
+                            <Link to="/welcome/jbreitzman" className="nav-link">
+                                Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/todos" className="nav-link">
+                                Todo
+                            </Link>
+                        </li>
+                    </ul>
+                    <ul className="navbar-nav navbar-collapse justify-content-end">
+                        <li>
+                            <Link to="/login" className="nav-link">
+                                Login
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/logout" className="nav-link">
+                                Logout
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+        );
+    }
+}
+
+class FooterComponent extends Component {
+    render() {
+        return (
+            <div>
+                <hr />
+                Footer
+            </div>
+        );
+    }
 }
 
 class LoginComponent extends Component {
