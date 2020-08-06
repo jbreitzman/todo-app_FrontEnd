@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AuthenticatedRoute from "./AuthenticatedRoute";
-import LoginComponent from "./LoginComponent";
-import HeaderComponent from "./HeaderComponent.jsx";
-import FooterComponent from "./FooterComponent";
-import { ErrorComponent } from "./ErrorComponent";
-import LogoutComponent from "./LogoutComponent";
-import ListTodosComponent from "./ListTodosComponent";
-import WelcomeComponent from "./WelcomeComponent";
+import AuthenticatedRoute from "../AuthenticatedRoute/AuthenticatedRoute";
+import LoginComponent from "../LoginComponent/LoginComponent";
+import HeaderComponent from "../HeaderComponent/HeaderComponent";
+import FooterComponent from "../FooterComponent/FooterComponent";
+import { ErrorComponent } from "../ErrorComponent/ErrorComponent";
+import LogoutComponent from "../LogoutComponent/LogoutComponent";
+import ListTodosComponent from "../ListTodosComponent/ListTodosComponent";
+import WelcomeComponent from "../WelcomeComponent/WelcomeComponent";
 import "./TodoApp.css";
 import "../../bootstrap.css";
+import TodoComponent from "../TodoComponent/TodoComponent";
 
 class TodoApp extends Component {
     render() {
@@ -20,6 +21,7 @@ class TodoApp extends Component {
                     <Switch>
                         <Route path="/" exact component={LoginComponent} />
                         <Route path="/login" component={LoginComponent} />
+                        <AuthenticatedRoute path="/todos/:id" component={TodoComponent} />
                         <AuthenticatedRoute path="/welcome/:username" component={WelcomeComponent} />
                         <AuthenticatedRoute path="/todos" component={ListTodosComponent} />
                         <AuthenticatedRoute path="/logout" component={LogoutComponent} />

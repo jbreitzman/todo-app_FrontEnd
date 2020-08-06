@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import AuthenticationService from "./AuthenticationService";
+import AuthenticationService from "../AuthenticatedRoute/AuthenticationService";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import "./TodoApp.css";
+import "../TodoApp/TodoApp.css";
 import "../../bootstrap.css";
 
 class HeaderComponent extends Component {

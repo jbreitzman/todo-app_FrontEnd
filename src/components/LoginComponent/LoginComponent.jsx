@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./TodoApp.css";
+import "../TodoApp/TodoApp.css";
 import "../../bootstrap.css";
-import AuthenticationService from "./AuthenticationService";
+import AuthenticationService from "../AuthenticatedRoute/AuthenticationService";
 import { withRouter } from "react-router";
 
 class LoginComponent extends Component {
