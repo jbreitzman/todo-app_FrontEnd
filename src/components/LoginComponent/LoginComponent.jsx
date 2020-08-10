@@ -34,18 +34,19 @@ class LoginComponent extends Component {
     }
 
     loginClicked() {
-        // TODO: Hardcoded Authentication.
-        if (this.state.username === "jbreitzman" && this.state.password === "password") {
-            // Register Username/Password into SessionStorage
-            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+        AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+            .then(() => {
+                // Register Username/Password into SessionStorage
+                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
 
-            // Redirect User to Welcome Page
-            this.props.history.push(`/welcome/${this.state.username}`);
+                // Redirect User to Welcome Page
+                this.props.history.push(`/welcome/${this.state.username}`);
 
-            this.setState({ showSuccessMessage: true, hasLoginFailed: false });
-        } else {
-            this.setState({ showSuccessMessage: false, hasLoginFailed: true });
-        }
+                this.setState({ showSuccessMessage: true, hasLoginFailed: false });
+            })
+            .catch(() => {
+                this.setState({ showSuccessMessage: false, hasLoginFailed: true });
+            });
     }
 
     handleChange(event) {
