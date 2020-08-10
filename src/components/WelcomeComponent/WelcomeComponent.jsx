@@ -41,13 +41,32 @@ class WelcomeComponent extends Component {
         //HelloWorldService.executeHelloWorldService().then((response) => this.handleSuccessfulResponse(response));
         //.catch()
 
-        HelloWorldService.executeHelloWorldServiceWithVar(this.props.match.params.username).then((response) => this.handleSuccessfulResponse(response));
+        HelloWorldService.executeHelloWorldServiceWithVar(this.props.match.params.username)
+            .then((response) => this.handleSuccessfulResponse(response))
+            .catch((err) => {
+                this.handleErrorResponse(err);
+            });
         //.catch()
     }
 
     handleSuccessfulResponse(response) {
         this.setState({ welcomeMessage: response.data.message });
         console.log(response.data.message);
+    }
+
+    handleErrorResponse(error) {
+        console.log(error.response);
+        let errorMessage = "";
+
+        if (error.message) {
+            errorMessage += error.message;
+        }
+
+        if (error.response && error.response.data) {
+            errorMessage += error.response.data.message;
+        }
+
+        this.setState({ welcomeMessage: errorMessage });
     }
 }
 

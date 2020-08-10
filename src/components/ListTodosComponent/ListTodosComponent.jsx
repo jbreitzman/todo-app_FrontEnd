@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import "../TodoApp/TodoApp.css";
 import "../../bootstrap.css";
+import moment from "moment";
 import TodoDataService from "../../api/todo/TodoDataService.js";
 import AuthenticationService from "../AuthenticatedRoute/AuthenticationService";
 
@@ -36,9 +37,12 @@ class ListTodosComponent extends Component {
     updateTodoClicked(id) {
         // Redirect User to Todo Component Page
         this.props.history.push(`/todos/${id}`);
-
-        console.log("Update Clicked: " + id);
     }
+
+    addTodoClicked = () => {
+        // Redirect User to Todo Component Page
+        this.props.history.push(`/todos/-1`);
+    };
 
     render() {
         return (
@@ -61,7 +65,7 @@ class ListTodosComponent extends Component {
                                 <tr key={todo.id}>
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
-                                    <td>{todo.targetDate.toString()}</td>
+                                    <td>{moment(todo.targetDate).format("YYYY-MM-DD")}</td>
                                     <td>
                                         <button onClick={() => this.updateTodoClicked(todo.id)} className="btn btn-success">
                                             Update
@@ -76,6 +80,11 @@ class ListTodosComponent extends Component {
                             ))}
                         </tbody>
                     </table>
+                    <div className="row">
+                        <button onClick={this.addTodoClicked} className="btn btn-success">
+                            Add
+                        </button>
+                    </div>
                 </div>
             </div>
         );
