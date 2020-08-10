@@ -6,16 +6,7 @@ class HelloWorldService {
     }
 
     executeHelloWorldServiceWithVar(name) {
-        let username = "jbreitzman";
-        let password = "password";
-
-        let basicAuthHeader = "Basic " + window.btoa(username + ":" + password);
-
-        return Axios.get(`http://localhost:8080/hello-world-var/${name}`, {
-            headers: {
-                authorization: basicAuthHeader,
-            },
-        });
+        return Axios.get(`http://localhost:8080/hello-world-var/${name}`);
     }
 }
 
