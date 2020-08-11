@@ -34,10 +34,24 @@ class LoginComponent extends Component {
     }
 
     loginClicked() {
-        AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
-            .then(() => {
+        // AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+        //     .then(() => {
+        //         // Register Username/Password into SessionStorage
+        //         AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+
+        //         // Redirect User to Welcome Page
+        //         this.props.history.push(`/welcome/${this.state.username}`);
+
+        //         this.setState({ showSuccessMessage: true, hasLoginFailed: false });
+        //     })
+        //     .catch(() => {
+        //         this.setState({ showSuccessMessage: false, hasLoginFailed: true });
+        //     });
+
+        AuthenticationService.executeJWTAuthenticationService(this.state.username, this.state.password)
+            .then((response) => {
                 // Register Username/Password into SessionStorage
-                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+                AuthenticationService.registerSuccessfulLoginForJWT(this.state.username, response.data.token);
 
                 // Redirect User to Welcome Page
                 this.props.history.push(`/welcome/${this.state.username}`);
