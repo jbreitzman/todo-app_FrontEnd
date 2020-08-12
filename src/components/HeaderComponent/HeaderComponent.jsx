@@ -14,7 +14,7 @@ class HeaderComponent extends Component {
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                     <div>
                         <a href="http://www.breitek.io" className="navbar-brand">
-                            jbreitzman
+                            BreiTek LLC
                         </a>
                     </div>
                     <ul className="navbar-nav">

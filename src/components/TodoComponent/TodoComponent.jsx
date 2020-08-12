@@ -35,7 +35,8 @@ class TodoComponent extends Component {
     };
 
     componentDidMount() {
-        if (this.state.id === -1) {
+        console.log("Id: " + this.state.id);
+        if (this.state.id === "-1" || this.state.id === -1) {
             return;
         } else {
             let username = AuthenticationService.getAuthenticatedUser();

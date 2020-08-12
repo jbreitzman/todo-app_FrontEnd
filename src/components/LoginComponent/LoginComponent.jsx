@@ -8,7 +8,7 @@ class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "jbreitzman",
+            username: "",
             password: "",
             hasLoginFailed: false,
             showSuccessMessage: false,
@@ -53,10 +53,9 @@ class LoginComponent extends Component {
                 // Register Username/Password into SessionStorage
                 AuthenticationService.registerSuccessfulLoginForJWT(this.state.username, response.data.token);
 
+                this.setState({ showSuccessMessage: true, hasLoginFailed: false });
                 // Redirect User to Welcome Page
                 this.props.history.push(`/welcome/${this.state.username}`);
-
-                this.setState({ showSuccessMessage: true, hasLoginFailed: false });
             })
             .catch(() => {
                 this.setState({ showSuccessMessage: false, hasLoginFailed: true });
